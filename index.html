@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASAR - Asociación Sexológica Argentina</title>
+    
+    <!-- Fuentes de Google para un aspecto profesional -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Iconos para las redes sociales -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            /* Paleta de colores profesionales y serenos */
+            --primary-color: #2c5282; /* Azul oscuro institucional */
+            --secondary-color: #4299e1; /* Azul claro */
+            --accent-color: #e53e3e; /* Rojo suave para detalles/botones */
+            --text-main: #2d3748; /* Gris oscuro para texto */
+            --text-light: #718096; /* Gris claro */
+            --bg-main: #f7fafc; /* Fondo general casi blanco */
+            --bg-white: #ffffff; /* Fondo blanco puro para tarjetas */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-main);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Lora', serif;
+            color: var(--primary-color);
+        }
+
+        header {
+            background-color: var(--bg-white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            font-family: 'Lora', serif;
+        }
+
+        .logo-text h1 {
+            font-size: 1.4rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .logo-text p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav {
+            display: flex;
+            gap: 5px;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 600;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-btn:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-btn.active {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            min-height: 60vh;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+
+        /* Estilos generales para tarjetas (cards) */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background-color: var(--bg-white);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--secondary-color);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(rgba(44, 82, 130, 0.9), rgba(44, 82, 130, 0.8)), url('https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            color: white;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+        }
+
+        .hero h2 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem auto;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #c53030;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-form {
+            background-color: var(--bg-white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .contact-info {
+            padding: 2rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .info-item i {
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            margin-right: 15px;
+            width: 30px;
+            text-align: center;
+        }
+
+        .social-links {
+            margin-top: 2rem;
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 45px;
+            height: 45px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: background 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--secondary-color);
+        }
+
+        footer {
+            background-color: var(--text-main);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        footer p {
+            color: #a0aec0;
+            font-size: 0.9rem;
+        }
+
+        /* Responsividad para celulares */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            nav {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="logo" onclick="openTab('inicio')">
+                <div class="logo-icon">A</div>
+                <div class="logo-text">
+                    <h1>ASAR</h1>
+                    <p>Asociación Sexológica Argentina</p>
+                </div>
+            </div>
+            <nav>
+                <button class="nav-btn active" onclick="openTab('inicio')">Inicio</button>
+                <button class="nav-btn" onclick="openTab('quienes-somos')">Quiénes Somos</button>
+                <button class="nav-btn" onclick="openTab('actividades')">Actividades</button>
+                <button class="nav-btn" onclick="openTab('contacto')">Contacto y Redes</button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="inicio" class="tab-content active">
+            <div class="hero">
+                <h2>Bienvenidos a ASAR</h2>
+                <p>Promoviendo la salud, la educación y la investigación científica en el campo de la sexología integral en Argentina y Latinoamérica.</p>
+                <button class="btn-primary" onclick="openTab('actividades')">Ver Próximas Actividades</button>
+            </div>
+
+            <div class="grid-container">
+                <div class="card">
+                    <h3><i class="fas fa-user-graduate" style="color:var(--secondary-color); margin-right: 10px;"></i> Formación Continua</h3>
+                    <p>Ofrecemos seminarios, cursos de posgrado y talleres dictados por profesionales destacados en el ámbito de la sexología clínica y educativa.</p>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-hands-helping" style="color:var(--secondary-color); margin-right: 10px;"></i> Espacio de Consulta</h3>
+                    <p>Brindamos orientación y derivación a profesionales acreditados para asegurar una atención ética, inclusiva y basada en evidencia científica.</p>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-book-open" style="color:var(--secondary-color); margin-right: 10px;"></i> Divulgación</h3>
+                    <p>Trabajamos activamente en la desmitificación y promoción de los derechos sexuales a través de publicaciones y participación comunitaria.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="quienes-somos" class="tab-content">
+            <h2 class="section-title">Quiénes Somos</h2>
+            
+            <div style="background: white; padding: 3rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 2rem;">
+                <h3 style="margin-bottom: 1rem;">Nuestra Historia</h3>
+                <p style="margin-bottom: 1.5rem;">La <strong>Asociación Sexológica Argentina (ASAR)</strong> fue fundada con el propósito de reunir a profesionales de la salud, la psicología y la educación comprometidos con el estudio y abordaje de la sexualidad humana desde una perspectiva integral, ética y libre de prejuicios.</p>
+                
+                <h3 style="margin-bottom: 1rem;">Misión y Visión</h3>
+                <p style="margin-bottom: 1rem;"><strong>Misión:</strong> Promover el desarrollo de la sexología científica, la educación sexual integral y el bienestar de las personas a través de la formación académica de excelencia y la divulgación responsable.</p>
+                <p><strong>Visión:</strong> Ser la institución de referencia en Argentina en la promoción de la salud sexual y los derechos sexuales, construyendo una sociedad más equitativa e informada.</p>
+            </div>
+
+            <h3 style="text-align: center; margin: 3rem 0 1.5rem 0;">Comisión Directiva</h3>
+            <div class="grid-container">
+                <div class="card" style="text-align: center;">
+                    <div style="width: 100px; height: 100px; background-color: #e2e8f0; border-radius: 50%; margin: 0 auto 1rem auto; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-user" style="font-size: 2rem; color: #a0aec0;"></i>
+                    </div>
+                    <h4>Dr/a. Nombre Apellido</h4>
+                    <p style="color: var(--text-light);">Presidencia</p>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div style="width: 100px; height: 100px; background-color: #e2e8f0; border-radius: 50%; margin: 0 auto 1rem auto; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-user" style="font-size: 2rem; color: #a0aec0;"></i>
+                    </div>
+                    <h4>Lic. Nombre Apellido</h4>
+                    <p style="color: var(--text-light);">Vicepresidencia</p>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div style="width: 100px; height: 100px; background-color: #e2e8f0; border-radius: 50%; margin: 0 auto 1rem auto; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-user" style="font-size: 2rem; color: #a0aec0;"></i>
+                    </div>
+                    <h4>Prof. Nombre Apellido</h4>
+                    <p style="color: var(--text-light);">Secretaría General</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="actividades" class="tab-content">
+            <h2 class="section-title">Actividades y Formación</h2>
+            
+            <div class="grid-container" style="grid-template-columns: 1fr;">
+                <div class="card" style="display: flex; gap: 2rem; align-items: center; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 250px;">
+                        <span style="background-color: var(--secondary-color); color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold;">PRÓXIMAMENTE</span>
+                        <h3 style="margin: 10px 0;">Jornadas Argentinas de Sexología Clínica</h3>
+                        <p style="color: var(--text-light); margin-bottom: 10px;"><i class="far fa-calendar-alt"></i> 15 y 16 de Noviembre | <i class="fas fa-map-marker-alt"></i> Modalidad Híbrida</p>
+                        <p>Encuentro anual destinado a profesionales de la salud. Mesas redondas, presentación de casos clínicos y actualización en disfunciones sexuales.</p>
+                        <button class="btn-primary" style="margin-top: 15px; padding: 8px 20px; font-size: 0.9rem;">Más Información</button>
+                    </div>
+                </div>
+
+                <div class="card" style="display: flex; gap: 2rem; align-items: center; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 250px;">
+                        <span style="background-color: #48bb78; color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold;">INSCRIPCIÓN ABIERTA</span>
+                        <h3 style="margin: 10px 0;">Diplomatura en Educación Sexual Integral (ESI)</h3>
+                        <p style="color: var(--text-light); margin-bottom: 10px;"><i class="far fa-calendar-alt"></i> Inicia en Marzo | <i class="fas fa-map-marker-alt"></i> Modalidad Virtual</p>
+                        <p>Formación intensiva de 8 meses dirigida a docentes, psicólogos y trabajadores sociales. Herramientas prácticas para la implementación de la ESI.</p>
+                        <button class="btn-primary" style="margin-top: 15px; padding: 8px 20px; font-size: 0.9rem;">Ver Programa</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto" class="tab-content">
+            <h2 class="section-title">Contacto y Redes Sociales</h2>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3 style="margin-bottom: 1.5rem;">Estamos para ayudarte</h3>
+                    <p style="margin-bottom: 2rem;">Si deseas asociarte, inscribirte en alguna actividad o tienes alguna consulta institucional, no dudes en escribirnos.</p>
+                    
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>info@asar.org.ar (Ejemplo)</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <span>+54 11 1234-5678</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Ciudad Autónoma de Buenos Aires, Argentina</span>
+                    </div>
+
+                    <h3 style="margin-top: 3rem; margin-bottom: 1rem;">Nuestras Redes</h3>
+                    <div class="social-links">
+                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <form onsubmit="event.preventDefault(); alert('¡Gracias por tu mensaje! Este es un formulario de prueba.');">
+                        <div class="form-group">
+                            <label for="nombre">Nombre Completo</label>
+                            <input type="text" id="nombre" required placeholder="Ingresa tu nombre">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Correo Electrónico</label>
+                            <input type="email" id="email" required placeholder="tu@correo.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="asunto">Asunto</label>
+                            <input type="text" id="asunto" required placeholder="¿En qué podemos ayudarte?">
+                        </div>
+                        <div class="form-group">
+                            <label for="mensaje">Mensaje</label>
+                            <textarea id="mensaje" required placeholder="Escribe tu mensaje aquí..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary" style="width: 100%; border:none; cursor:pointer;">Enviar Mensaje</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Asociación Sexológica Argentina (ASAR). Todos los derechos reservados.</p>
+        <p style="margin-top: 10px; font-size: 0.8rem;">Diseñado para la difusión de la salud integral.</p>
+    </footer>
+
+    <script>
+        // Función para cambiar entre las diferentes solapas
+        function openTab(tabId) {
+            // 1. Ocultar todos los contenidos
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // 2. Quitar la clase 'active' de todos los botones del menú
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // 3. Mostrar el contenido seleccionado
+            document.getElementById(tabId).classList.add('active');
+
+            // 4. Resaltar el botón del menú que se acaba de clickear
+            // (Usamos un selector de atributo para encontrar el botón exacto)
+            const activeBtn = document.querySelector(`.nav-btn[onclick="openTab('${tabId}')"]`);
+            if(activeBtn) {
+                activeBtn.classList.add('active');
+            }
+            
+            // Si hacen clic en el logo, resaltar el botón "Inicio"
+            if(tabId === 'inicio') {
+                 document.querySelector('.nav-btn').classList.add('active');
+            }
+            
+            // Hacer scroll suave hacia arriba al cambiar de pestaña
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
